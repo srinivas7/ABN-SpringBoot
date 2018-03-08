@@ -1,6 +1,7 @@
 package com.abn.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 public class FirstController {
 	@RequestMapping(value="/some", method=RequestMethod.GET)
-	public String some() {
+	public String some() throws ParseException {
+		JSONRead jsonRead = new JSONRead();
+		jsonRead.readJSONFile("src/main/resources/states.json");
 		return "some";
 	}
 	@RequestMapping(value="/something", method=RequestMethod.GET)
