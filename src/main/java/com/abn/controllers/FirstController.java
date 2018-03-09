@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abn.pojo.Image;
 import com.abn.pojo.Images;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.simple.parser.ParseException;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @CrossOrigin(origins = "*")
 @RestController
 public class FirstController {
-	@RequestMapping(value="/some", method=RequestMethod.GET)
-	public HashMap<Long, Image> some() throws ParseException {
+	@RequestMapping(value="/singleAlbum", method=RequestMethod.GET)
+	public HashMap<String, ArrayList<Image>> some() throws ParseException {
 		JSONRead jsonRead = new JSONRead();
-		HashMap<Long, Image> hmap;
-		hmap = jsonRead.readJSONFile("src/main/resources/singleAlbum.json");
+		HashMap<String, ArrayList<Image>> hmap = new HashMap<String, ArrayList<Image>>();
+		ArrayList<Image> images;
+		images = jsonRead.readJSONFile("src/main/resources/singleAlbum.json");
+		hmap.put("images", images);
 		System.out.println("images object is..."+hmap);
 		return hmap;
 	}

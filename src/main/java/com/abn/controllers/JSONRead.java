@@ -25,8 +25,8 @@ public class JSONRead {
     List images = new ArrayList<Image>();
     HashMap<Long, Image> hmap = new HashMap<Long, Image>();
     Image image;
-	
-    public HashMap<Long, Image> readJSONFile(String fileNamePath) {
+    ArrayList<Image> imagesArray = new ArrayList<Image>();
+    public ArrayList<Image> readJSONFile(String fileNamePath) {
 
 
         try {
@@ -44,6 +44,7 @@ public class JSONRead {
                 str = str.replace("'", "/");
                 str = str.replace(',', '?');
                 image.setUrl(str);
+                imagesArray.add(image);
                 hmap.put(image.getId(),image);
         	}
 
@@ -53,7 +54,7 @@ public class JSONRead {
         } catch (IOException e) {
             e.printStackTrace();
         }
-		return hmap;
+		return imagesArray;
 
     }
 
