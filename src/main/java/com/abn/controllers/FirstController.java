@@ -13,7 +13,7 @@ public class FirstController {
 	@RequestMapping(value="/some", method=RequestMethod.GET)
 	public String some() throws ParseException {
 		JSONRead jsonRead = new JSONRead();
-		jsonRead.readJSONFile("src/main/resources/states.json");
+		jsonRead.readJSONFile("src/main/resources/singleAlbum.json");
 		return "some";
 	}
 	@RequestMapping(value="/something", method=RequestMethod.GET)

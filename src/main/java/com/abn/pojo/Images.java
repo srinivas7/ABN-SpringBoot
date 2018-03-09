@@ -1,10 +1,17 @@
 package com.abn.pojo;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Images {
-	private List<Image> images = new List();
-	
-	
+	private ArrayList images = new ArrayList();
 
-}
+	public ArrayList getImages() {
+		return images;
+	}
+
+	public void setImages(ArrayList images) {
+		this.images = images;
+	}
+	
+	
+ }

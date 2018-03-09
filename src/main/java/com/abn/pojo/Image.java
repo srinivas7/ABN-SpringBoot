@@ -1,14 +1,15 @@
 package com.abn.pojo;
 
+import java.util.Date;
 
 public class Image {
-	private int ownerAccountId;
+	private long ownerAccountId;
 	private  String url;
-	private  int dateTaken;
-	private  int id;
+	private  String dateTaken;
+	private  long id;
 	
 	
-	public int getOwnerAccountId() {
+	public long getOwnerAccountId() {
 		return ownerAccountId;
 	}
 	public void setOwnerAccountId(int ownerAccountId) {
@@ -20,16 +21,16 @@ public class Image {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public int getDateTaken() {
+	public String getDateTaken() {
 		return dateTaken;
 	}
-	public void setDateTaken(int dateTaken) {
+	public void setDateTaken(String dateTaken) {
 		this.dateTaken = dateTaken;
 	}
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 }

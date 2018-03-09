@@ -1,33 +1,60 @@
 package com.abn.controllers;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import com.abn.pojo.Images;
-import com.abn.pojo.State;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+
+import org.json.simple.parser.ParseException;
+
+import com.abn.pojo.Image;
+import com.abn.pojo.Images;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
 
 public class JSONRead {
-
+	
+	
     public void readJSONFile(String fileNamePath) throws ParseException {
 
-        JSONParser parser = new JSONParser();
+        ;
         ObjectMapper mapper = new ObjectMapper();
-        Object obj;
-        State state = new State();
+        Gson g = new Gson();
+        ArrayList imagesString;
+        List images = new ArrayList<Image>();
+        HashMap<Long, Image> hmap = new HashMap<Long, Image>();
+        Image image;
 
         try {
-        	Images imagesObj =  mapper.readValue(new FileReader(fileNamePath),Images.class);
-        	System.out.println(imagesObj);
-        	System.out.println(imagesObj.getImage());
+        	Images imagesObj =   mapper.readValue(new FileReader(fileNamePath),Images.class);
+        	imagesString = imagesObj.getImages();
+        	Iterator ite = imagesString.iterator();
+        	
+        	while(ite.hasNext()) {
+        		Object element = ite.next();
+        		JsonReader reader = new JsonReader(new StringReader(element.toString()));
+        		reader.setLenient(true);
+        		image = g.fromJson(reader, Image.class);
+                String str = image.getUrl();
+                str = str.replace(',', '?');
+                str = str.replace("'", "/");
+                str = str.replace(',', '?');
+                image.setUrl(str);
+                System.out.println(image.getUrl());
+                images.add(image);
+                System.out.println(image.getId());
+                hmap.put(image.getId(),image);
+                hmap.get(image.getId());
+        	}
+        	Long id = (long) 1000;
+        	System.out.println(hmap.get((long)1000));
+        	
         	
         } catch (FileNotFoundException e) {
             e.printStackTrace();
