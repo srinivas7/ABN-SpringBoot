@@ -46,15 +46,10 @@ public class JSONRead {
                 str = str.replace("'", "/");
                 str = str.replace(',', '?');
                 image.setUrl(str);
-                System.out.println(image.getUrl());
-                images.add(image);
-                System.out.println(image.getId());
                 hmap.put(image.getId(),image);
-                hmap.get(image.getId());
         	}
-        	Long id = (long) 1000;
-        	System.out.println(hmap.get((long)1000));
-        	
+
+        	//System.out.println(hmap.get((long)1000));
         	
         } catch (FileNotFoundException e) {
             e.printStackTrace();
