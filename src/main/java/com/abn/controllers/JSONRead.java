@@ -19,17 +19,15 @@ import com.google.gson.stream.JsonReader;
 
 
 public class JSONRead {
+	ObjectMapper mapper = new ObjectMapper();
+    Gson g = new Gson();
+    ArrayList imagesString;
+    List images = new ArrayList<Image>();
+    HashMap<Long, Image> hmap = new HashMap<Long, Image>();
+    Image image;
 	
-	
-    public void readJSONFile(String fileNamePath) throws ParseException {
+    public HashMap<Long, Image> readJSONFile(String fileNamePath) {
 
-        ;
-        ObjectMapper mapper = new ObjectMapper();
-        Gson g = new Gson();
-        ArrayList imagesString;
-        List images = new ArrayList<Image>();
-        HashMap<Long, Image> hmap = new HashMap<Long, Image>();
-        Image image;
 
         try {
         	Images imagesObj =   mapper.readValue(new FileReader(fileNamePath),Images.class);
@@ -50,12 +48,12 @@ public class JSONRead {
         	}
 
         	//System.out.println(hmap.get((long)1000));
-        	
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+		return hmap;
 
     }
 
