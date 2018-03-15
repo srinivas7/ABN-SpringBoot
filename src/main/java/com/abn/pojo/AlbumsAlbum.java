@@ -1,21 +1,18 @@
 package com.abn.pojo;
 
-import java.util.ArrayList;
-
-public class Album {
+public class AlbumsAlbum {
 	
-	ArrayList<Image> images;
-    long ownerId;
-    String thumbnailEncryption;
-    int id;
-    String albumName;
+	private long assetId;
+    private long ownerId;
+    private String thumbnailEncryption;
+    private long id;
+    private String albumName;
     
-	
-	public ArrayList<Image> getImages() {
-		return images;
+	public long getAssetId() {
+		return assetId;
 	}
-	public void setImages(ArrayList<Image> images) {
-		this.images = images;
+	public void setAssetId(long assetId) {
+		this.assetId = assetId;
 	}
 	public long getOwnerId() {
 		return ownerId;
@@ -29,10 +26,10 @@ public class Album {
 	public void setThumbnailEncryption(String thumbnailEncryption) {
 		this.thumbnailEncryption = thumbnailEncryption;
 	}
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getAlbumName() {
@@ -40,10 +37,5 @@ public class Album {
 	}
 	public void setAlbumName(String albumName) {
 		this.albumName = albumName;
-	}
-	
-	public String toString() {
-		return "id:"+this.id+" account Id "+this.ownerId+" Album Name "+ this.albumName;
-		
 	}
 }

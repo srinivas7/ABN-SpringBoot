@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.abn.pojo.Album;
 import com.abn.pojo.Albums;
+import com.abn.pojo.AlbumsAlbum;
 import com.abn.pojo.Image;
 import com.abn.pojo.Images;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,8 +83,10 @@ public class FirstController {
 		obj.put("albumName",newAlbum.getAlbumName());
 		
 		ArrayList imagesAry = new ArrayList();
-		ArrayList<Images> images = newAlbum.getImages();
-		ListIterator li = images.listIterator();
+		ArrayList<Image> images = newAlbum.getImages();
+		ListIterator<Image> li = images.listIterator();
+		
+
 		
 		while(li.hasNext()) {
 			System.out.println("next element is..."+li.next());
@@ -109,17 +112,27 @@ public class FirstController {
 		
 		//updating albums.json with new album name
 		ObjectMapper albumsJson  =   new ObjectMapper();
+		System.out.println("info..."+ albumsJson.readValue(new FileReader("src/main/resources/albums.json"), Albums.class));
+		
 		Albums albums = albumsJson.readValue(new FileReader("src/main/resources/albums.json"), Albums.class);
+		
 		JSONObject albumsJsonObj = new JSONObject();
 		JSONObject albumsSingleAlbumObj = new JSONObject();
-		ArrayList list = albums.getCollectionList();
-		//list.add(newAlbum);
+		ArrayList<AlbumsAlbum> list = albums.getCollectionList();
+		AlbumsAlbum aa = new AlbumsAlbum();
+		aa.setAlbumName(newAlbum.getAlbumName());
+		aa.setAssetId(newAlbum.getId());
+		aa.setId(newAlbum.getId());
+		aa.setThumbnailEncryption(newAlbum.getThumbnailEncryption());
+		
+		//list.add(aa);
+		
 		albumsSingleAlbumObj.put("ownerId", newAlbum.getOwnerId());
 		albumsSingleAlbumObj.put("thumbnailEncryption", newAlbum.getThumbnailEncryption());
 		albumsSingleAlbumObj.put("id", newAlbum.getId());
 		albumsSingleAlbumObj.put("albumName", newAlbum.getAlbumName());
-		
-		list.add(albumsSingleAlbumObj);
+		System.out.println("sfasdfas..."+albumsSingleAlbumObj);
+		//list.add(albumsSingleAlbumObj);
 		albumsJsonObj.put("collectionList",list);
 		try (FileWriter file = new FileWriter("src/main/resources/albums.json")) {
 			file.write(albumsJsonObj.toJSONString());
