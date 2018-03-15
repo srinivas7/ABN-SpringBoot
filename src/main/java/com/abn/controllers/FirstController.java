@@ -112,10 +112,11 @@ public class FirstController {
 		
 		//updating albums.json with new album name
 		ObjectMapper albumsJson  =   new ObjectMapper();
-		System.out.println("info..."+ albumsJson.readValue(new FileReader("src/main/resources/albums.json"), Albums.class));
 		
+		System.out.println("before");
 		Albums albums = albumsJson.readValue(new FileReader("src/main/resources/albums.json"), Albums.class);
 		
+		System.out.println("aaa");
 		JSONObject albumsJsonObj = new JSONObject();
 		JSONObject albumsSingleAlbumObj = new JSONObject();
 		ArrayList<AlbumsAlbum> list = albums.getCollectionList();
@@ -124,9 +125,8 @@ public class FirstController {
 		aa.setAssetId(newAlbum.getId());
 		aa.setId(newAlbum.getId());
 		aa.setThumbnailEncryption(newAlbum.getThumbnailEncryption());
-		
-		//list.add(aa);
-		
+		System.out.println("bbb");
+		list.add(aa);
 		albumsSingleAlbumObj.put("ownerId", newAlbum.getOwnerId());
 		albumsSingleAlbumObj.put("thumbnailEncryption", newAlbum.getThumbnailEncryption());
 		albumsSingleAlbumObj.put("id", newAlbum.getId());
