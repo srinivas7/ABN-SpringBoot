@@ -73,7 +73,7 @@ public class FirstController {
 		ObjectMapper mapper = new ObjectMapper();
 		JSONObject imageObj = new JSONObject();
 		int albumId;
-		System.out.println("newAlbum info.."+newAlbum.getAlbumName());
+		System.out.println("newAlbum info.."+newAlbum.toString());
 
 		//creating a new json file
 		obj.put("ownerId",newAlbum.getOwnerId());
@@ -82,9 +82,12 @@ public class FirstController {
 		obj.put("albumName",newAlbum.getAlbumName());
 		
 		ArrayList imagesAry = new ArrayList();
-		ArrayList images = newAlbum.getImages();
+		ArrayList<Images> images = newAlbum.getImages();
 		ListIterator li = images.listIterator();
+		
 		while(li.hasNext()) {
+			System.out.println("next element is..."+li.next());
+			
 			Image img = (Image) li.next();
 			imageObj.put("ownerAccountId",img.getOwnerAccountId());
 			imageObj.put("url",img.getUrl());

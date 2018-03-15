@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Album {
 	
 	ArrayList images;
-    int ownerId;
+    long ownerId;
     String thumbnailEncryption;
     int id;
     String albumName;
@@ -17,10 +17,10 @@ public class Album {
 	public void setImages(ArrayList images) {
 		this.images = images;
 	}
-	public int getOwnerId() {
+	public long getOwnerId() {
 		return ownerId;
 	}
-	public void setOwnerId(int ownerId) {
+	public void setOwnerId(long ownerId) {
 		this.ownerId = ownerId;
 	}
 	public String getThumbnailEncryption() {
@@ -40,5 +40,10 @@ public class Album {
 	}
 	public void setAlbumName(String albumName) {
 		this.albumName = albumName;
+	}
+	
+	public String toString() {
+		return "id:"+this.id+" account Id "+this.ownerId+" Album Name "+ this.albumName;
+		
 	}
 }
