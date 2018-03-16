@@ -1,13 +1,16 @@
 package com.abn.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.abn.pojo.Album;
 import com.abn.pojo.Albums;
 import com.abn.pojo.AlbumsAlbum;
 import com.abn.pojo.Image;
 import com.abn.pojo.Images;
+import com.abn.services.StorageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -23,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +44,9 @@ public class FirstController {
 	
 	AtomicInteger seq = new AtomicInteger();
 	private static AtomicInteger ID_GENERATOR = new AtomicInteger(1000);
+	@Autowired
+	StorageService storageService;
+	List<String> files = new ArrayList<String>();
 	
 	@RequestMapping(value="/singleAlbum/{id}", method=RequestMethod.GET)
 	public ResponseEntity<HashMap<String, ArrayList<Image>>> getSAData(@PathVariable("id") int alubmId, HttpServletRequest request) throws ParseException {
@@ -63,6 +71,21 @@ public class FirstController {
 	public int something(@RequestParam("id") int id) {
 		System.out.println(id);
 		return id;
+	}
+	
+	@RequestMapping(value="/imageUpload", headers=("content-type=multipart/*"), method=RequestMethod.POST)
+	public ResponseEntity<String> imageUpload(@RequestParam("file") MultipartFile file) {
+		String message = "";
+		try {
+			storageService.store(file);
+			files.add(file.getOriginalFilename());
+ 
+			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
+			return ResponseEntity.status(HttpStatus.OK).body(message);
+		} catch (Exception e) {
+			message = "FAIL to upload " + file.getOriginalFilename() + "!";
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+		}
 	}
 	
 	@RequestMapping(value="/newAlbum", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -125,15 +148,21 @@ public class FirstController {
 		aa.setAssetId(newAlbum.getId());
 		aa.setId(newAlbum.getId());
 		aa.setThumbnailEncryption(newAlbum.getThumbnailEncryption());
-		System.out.println("bbb");
+		
 		list.add(aa);
+		
+		Gson gson = new Gson();
+		String listData = gson.toJson(list);
+		System.out.println("the data is.."+listData);
+		
 		albumsSingleAlbumObj.put("ownerId", newAlbum.getOwnerId());
 		albumsSingleAlbumObj.put("thumbnailEncryption", newAlbum.getThumbnailEncryption());
 		albumsSingleAlbumObj.put("id", newAlbum.getId());
 		albumsSingleAlbumObj.put("albumName", newAlbum.getAlbumName());
 		System.out.println("sfasdfas..."+albumsSingleAlbumObj);
 		//list.add(albumsSingleAlbumObj);
-		albumsJsonObj.put("collectionList",list);
+		System.out.println(aa);
+		albumsJsonObj.put("collectionList",listData);
 		try (FileWriter file = new FileWriter("src/main/resources/albums.json")) {
 			file.write(albumsJsonObj.toJSONString());
 			System.out.println("Successfully Copied to albums JSON File...");

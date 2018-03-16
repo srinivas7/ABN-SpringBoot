@@ -1,0 +1,22 @@
+/newAblum
+
+{  
+	"ownerId":14255,
+    "thumbnailEncryption" : "images.pexels.com",
+    "id" : 24545,
+    "albumName": "new albums",
+	 "images" : [
+	 	 {  
+	     "ownerAccountId":14259,
+	     "url":"images.pexels.com",
+	     "dateTaken":1466181881000,
+	     "id":1000
+	  },
+	  {  
+	     "ownerAccountId":14259,
+	     "url":"images.pexels.com",
+	     "dateTaken":1466181881000,
+	     "id":1000
+	  }
+	 ]
+}
