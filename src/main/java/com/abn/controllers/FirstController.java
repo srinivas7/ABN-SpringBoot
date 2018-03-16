@@ -8,6 +8,7 @@ import com.abn.pojo.AlbumsAlbum;
 import com.abn.pojo.Image;
 import com.abn.pojo.Images;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -125,7 +126,11 @@ public class FirstController {
 		aa.setId(newAlbum.getId());
 		aa.setThumbnailEncryption(newAlbum.getThumbnailEncryption());
 		
-		//list.add(aa);
+		list.add(aa);
+		
+		Gson gson = new Gson();
+		String listData = gson.toJson(list);
+		System.out.println("the data is.."+listData);
 		
 		albumsSingleAlbumObj.put("ownerId", newAlbum.getOwnerId());
 		albumsSingleAlbumObj.put("thumbnailEncryption", newAlbum.getThumbnailEncryption());
@@ -133,7 +138,8 @@ public class FirstController {
 		albumsSingleAlbumObj.put("albumName", newAlbum.getAlbumName());
 		System.out.println("sfasdfas..."+albumsSingleAlbumObj);
 		//list.add(albumsSingleAlbumObj);
-		albumsJsonObj.put("collectionList",list);
+		System.out.println(aa);
+		albumsJsonObj.put("collectionList",listData);
 		try (FileWriter file = new FileWriter("src/main/resources/albums.json")) {
 			file.write(albumsJsonObj.toJSONString());
 			System.out.println("Successfully Copied to albums JSON File...");
