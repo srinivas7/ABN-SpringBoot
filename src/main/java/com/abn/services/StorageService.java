@@ -20,7 +20,7 @@ import java.util.Base64;
 @Service
 public class StorageService {
 	 
-	private final Path rootLocation = Paths.get("D:\\srinivas\\backend\\images");
+	private final Path rootLocation = Paths.get("C:\\Users\\Srinivas\\git\\images");
  
 	public void store(MultipartFile file) {
 		try {

@@ -38,6 +38,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.abn.controllers.MultiPartToBase64;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class FirstController {
@@ -76,10 +78,12 @@ public class FirstController {
 	@RequestMapping(value="/imageUpload", method=RequestMethod.POST)
 	public ResponseEntity<String> imageUpload(@RequestParam("file") MultipartFile file) {
 		System.out.println("image upload");
+		MultiPartToBase64 mpb = new MultiPartToBase64();
 		String message = "";
 		try {
 			storageService.store(file);
 			files.add(file.getOriginalFilename());
+			mpb.convertToBase64(file);
  
 			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.OK).body(message);
