@@ -1,29 +1,42 @@
 package com.abn.services;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
- 
+
+import javax.imageio.ImageIO;
+
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.Base64;
 
 @Service
 public class StorageService {
 	 
-	private final Path rootLocation = Paths.get("upload-dir");
+	private final Path rootLocation = Paths.get("D:\\srinivas\\backend\\images");
  
 	public void store(MultipartFile file) {
 		try {
+			System.out.println(file.getInputStream());
 			Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+			//convertToBase64(file);
 		} catch (Exception e) {
 			throw new RuntimeException("FAIL!");
 		}
 	}
+	
+	public String convertToBase64(MultipartFile file) throws IOException {
+		System.out.println("bytes array is..."+file.getBytes());
+		return "";
+	}
+	
  
 	public Resource loadFile(String filename) {
 		try {

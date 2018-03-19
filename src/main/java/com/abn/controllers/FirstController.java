@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class FirstController {
 	
@@ -73,8 +73,9 @@ public class FirstController {
 		return id;
 	}
 	
-	@RequestMapping(value="/imageUpload", headers=("content-type=multipart/*"), method=RequestMethod.POST)
+	@RequestMapping(value="/imageUpload", method=RequestMethod.POST)
 	public ResponseEntity<String> imageUpload(@RequestParam("file") MultipartFile file) {
+		System.out.println("image upload");
 		String message = "";
 		try {
 			storageService.store(file);
@@ -83,6 +84,7 @@ public class FirstController {
 			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		} catch (Exception e) {
+			System.out.println("something went wrong.."+e );
 			message = "FAIL to upload " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
 		}
