@@ -49,6 +49,7 @@ public class FirstController {
 	@Autowired
 	StorageService storageService;
 	List<String> files = new ArrayList<String>();
+	String imageBase64;
 	
 	@RequestMapping(value="/singleAlbum/{id}", method=RequestMethod.GET)
 	public ResponseEntity<HashMap<String, ArrayList<Image>>> getSAData(@PathVariable("id") int alubmId, HttpServletRequest request) throws ParseException {
@@ -75,17 +76,18 @@ public class FirstController {
 		return id;
 	}
 	
-	@RequestMapping(value="/imageUpload", method=RequestMethod.POST)
-	public ResponseEntity<String> imageUpload(@RequestParam("file") MultipartFile file, @RequestParam("data") Object data) {
+	@RequestMapping(value="/imageUpload", method=RequestMethod.POST, consumes="multipart/form-data")
+	public ResponseEntity<String> imageUpload(@RequestParam("file") MultipartFile file) {
 		System.out.println("image upload"+ file);
-		System.out.println("image upload payload data is.."+ data);
+		
+		//System.out.println("image upload payload data is.."+ data);
 		System.out.println("image upload to string .."+ file.toString());
 		MultiPartToBase64 mpb = new MultiPartToBase64();
 		String message = "";
 		try {
 			//storageService.store(file);
 			//files.add(file.getOriginalFilename());
-			mpb.convertToBase64(file);
+			imageBase64 = mpb.convertToBase64(file);
  
 			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.OK).body(message);
