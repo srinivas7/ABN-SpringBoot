@@ -76,8 +76,10 @@ public class FirstController {
 	}
 	
 	@RequestMapping(value="/imageUpload", method=RequestMethod.POST)
-	public ResponseEntity<String> imageUpload(@RequestParam("file") MultipartFile file) {
-		System.out.println("image upload");
+	public ResponseEntity<String> imageUpload(@RequestParam("file") MultipartFile file, @RequestParam("data") Object data) {
+		System.out.println("image upload"+ file);
+		System.out.println("image upload payload data is.."+ data);
+		System.out.println("image upload to string .."+ file.toString());
 		MultiPartToBase64 mpb = new MultiPartToBase64();
 		String message = "";
 		try {

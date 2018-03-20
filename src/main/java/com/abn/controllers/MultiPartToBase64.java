@@ -18,7 +18,7 @@ public class MultiPartToBase64 {
 		try {
 			img = en.encodeToString(file.getBytes());
 			img = sb+img;
-			System.out.println("image url is.."+ img);
+			//System.out.println("image url is.."+ img);
 		} catch (IOException e) {
 			System.out.println("can't convert to image Base64 URL");
 			e.printStackTrace();
