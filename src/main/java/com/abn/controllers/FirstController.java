@@ -7,6 +7,7 @@ import com.abn.pojo.Album;
 import com.abn.pojo.Albums;
 import com.abn.pojo.AlbumsAlbum;
 import com.abn.pojo.Image;
+import com.abn.pojo.ImageUrls;
 import com.abn.pojo.Images;
 import com.abn.services.StorageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,24 +78,25 @@ public class FirstController {
 	}
 	
 	@RequestMapping(value="/imageUpload", method=RequestMethod.POST, consumes="multipart/form-data")
-	public ResponseEntity<String> imageUpload(@RequestParam("file") MultipartFile file) {
-		System.out.println("image upload"+ file);
+	public ResponseEntity<ImageUrls> imageUpload(@RequestParam("file") MultipartFile file) {
 		
-		//System.out.println("image upload payload data is.."+ data);
 		System.out.println("image upload to string .."+ file.toString());
 		MultiPartToBase64 mpb = new MultiPartToBase64();
+		ArrayList images = new ArrayList();
+		ImageUrls IUrls = new ImageUrls();
 		String message = "";
 		try {
 			//storageService.store(file);
 			//files.add(file.getOriginalFilename());
 			imageBase64 = mpb.convertToBase64(file);
- 
-			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
-			return ResponseEntity.status(HttpStatus.OK).body(message);
+			images.add(imageBase64);
+			IUrls.setImages(images);
+			message = imageBase64;
+			return ResponseEntity.status(HttpStatus.OK).body(IUrls);
 		} catch (Exception e) {
 			System.out.println("something went wrong.."+e );
 			message = "FAIL to upload " + file.getOriginalFilename() + "!";
-			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(IUrls);
 		}
 	}
 	
