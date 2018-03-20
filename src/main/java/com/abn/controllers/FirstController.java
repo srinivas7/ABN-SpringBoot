@@ -81,8 +81,8 @@ public class FirstController {
 		MultiPartToBase64 mpb = new MultiPartToBase64();
 		String message = "";
 		try {
-			storageService.store(file);
-			files.add(file.getOriginalFilename());
+			//storageService.store(file);
+			//files.add(file.getOriginalFilename());
 			mpb.convertToBase64(file);
  
 			message = "You successfully uploaded " + file.getOriginalFilename() + "!";

@@ -1,14 +1,10 @@
 package com.abn.services;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import javax.imageio.ImageIO;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -20,7 +16,7 @@ import java.util.Base64;
 @Service
 public class StorageService {
 	 
-	private final Path rootLocation = Paths.get("C:\\Users\\Srinivas\\git\\images");
+	private final Path rootLocation = Paths.get("D:\\srinivas\\backend\\images");
  
 	public void store(MultipartFile file) {
 		try {
