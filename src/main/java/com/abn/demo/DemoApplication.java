@@ -24,11 +24,11 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 		
 		try {
-	         factory = new AnnotationConfiguration().
-	                   configure().
-	                   //addPackage("com.xyz") //add package if used.
-	                   addAnnotatedClass(Emp.class).
-	                   buildSessionFactory();
+//	         factory = new AnnotationConfiguration().
+//	                   configure().
+//	                   //addPackage("com.xyz") //add package if used.
+//	                   addAnnotatedClass(Emp.class).
+//	                   buildSessionFactory();
 	      } catch (Throwable ex) { 
 	         System.err.println("Failed to create sessionFactory object." + ex);
 	         throw new ExceptionInInitializerError(ex); 
@@ -37,32 +37,31 @@ public class DemoApplication {
 		DemoApplication ME = new DemoApplication();
 
 	      /* Add few employee records in database */
-	      Integer empID1 = ME.addEmployee("Zara", "Ali", 1000);
-	      Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
-	      Integer empID3 = ME.addEmployee("John", "Paul", 10000);
-	      
-	      System.out.println(empID1+"..."+empID2+"..."+empID3);
+//	      Integer empID1 = ME.addEmployee("Zara", "Ali", 1000);
+//	      Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
+//	      Integer empID3 = ME.addEmployee("John", "Paul", 10000);
+	    
 		
 	}
 	
-	 public Integer addEmployee(String fname, String lname, int salary){
-	      Session session = factory.openSession();
-	      Transaction tx = null;
-	      Integer employeeID = null;
-	      
-	      try {
-	         tx = session.beginTransaction();
-	         Emp employee = new Emp();
-	         employee.setId(121);
-	         employee.setName("asdf");
-	         employeeID = (Integer) session.save(employee); 
-	         tx.commit();
-	      } catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      } finally {
-	         session.close(); 
-	      }
-	      return employeeID;
-	   }
+//	 public Integer addEmployee(String fname, String lname, int salary){
+//	      Session session = factory.openSession();
+//	      Transaction tx = null;
+//	      Integer employeeID = null;
+//	      
+//	      try {
+//	         tx = session.beginTransaction();
+//	         Emp employee = new Emp();
+//	         employee.setId(121);
+//	         employee.setName("asdf");
+//	         employeeID = (Integer) session.save(employee); 
+//	         tx.commit();
+//	      } catch (HibernateException e) {
+//	         if (tx!=null) tx.rollback();
+//	         e.printStackTrace(); 
+//	      } finally {
+//	         session.close(); 
+//	      }
+//	      return employeeID;
+//	   }
 }
